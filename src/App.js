@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
 import './index.css';
@@ -43,7 +43,7 @@ let EditedGroceries = groceries.map((item) => {
   }
 })
 setGroceries(EditedGroceries)
-localStorage.setItem('groceries', JSON.stringify(EditedGroceries));
+// localStorage.setItem('groceries', JSON.stringify(EditedGroceries));
 setGrocery({ title: '', price: '' });
 setIsEditing(false)
 setEditId(null)
@@ -51,7 +51,7 @@ setEditId(null)
   let newGrocery = { ...grocery, id: uuidv4() };
   let newGroceries = [...groceries,newGrocery];
   setGroceries(newGroceries);
-  localStorage.setItem('groceries', JSON.stringify(newGroceries));
+  // localStorage.setItem('groceries', JSON.stringify(newGroceries));
   setGrocery({ title: '', price: '' });
 }
   }
@@ -59,7 +59,7 @@ setEditId(null)
 const deleteGrocery = (id) =>{
   let deletedGrocery = groceries.filter((grocery) => grocery.id !== id);
   setGroceries(deletedGrocery);
-  localStorage.setItem('groceries', JSON.stringify(deletedGrocery));
+  // localStorage.setItem('groceries', JSON.stringify(deletedGrocery));
 }
 
 const updateGrocery = (id) => {
@@ -68,6 +68,10 @@ const updateGrocery = (id) => {
   setGrocery(updatedGrocery)
   setEditId(id)
 }
+
+useEffect(()=>{
+  localStorage.setItem('groceries',JSON.stringify(groceries));
+},[groceries]);
 
 
 return (
